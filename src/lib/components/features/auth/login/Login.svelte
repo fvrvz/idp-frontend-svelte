@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import Button from '$lib/components/common/button/Button.svelte';
 	import Input from '$lib/components/common/input/Input.svelte';
+	import { authStore } from '$lib/state/auth.svelte';
 	import type { LoginResponse } from '$lib/types/auth.type';
 
 	const formData = $state({
@@ -35,10 +36,9 @@
 
 			const json: LoginResponse = await response.json();
 
-			console.log(json);
-			window.sessionStorage.setItem('AUTH', JSON.stringify(json));
+			authStore.setAuth(json);
 
-			goto('/home');
+			goto('/');
 		} catch (e) {
 			error = (e as Error).message;
 		} finally {
