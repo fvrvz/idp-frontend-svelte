@@ -1,0 +1,59 @@
+<script lang="ts">
+	import { afterNavigate } from '$app/navigation';
+	import { authStore } from '$lib/state/auth.svelte';
+	import type { MenuItem } from '$lib/types/common..type';
+	import Avatar from '../avatar/Avatar.svelte';
+
+	const menuItems: MenuItem[] = [
+		{ label: 'Settings', link: '/settings' },
+		{ label: 'Profile', link: '/profile' }
+	];
+
+	let isOpen = $state(false);
+
+	function signout() {
+		isOpen = false;
+		authStore.logout();
+	}
+
+	afterNavigate(() => (isOpen = false));
+</script>
+
+<div class="relative">
+	<button onclick={() => (isOpen = !isOpen)} class="cursor-pointer">
+		<Avatar initials={authStore.userInitials} />
+	</button>
+
+	{#if isOpen}
+		<nav
+			id="userDropdown"
+			class="absolute right-0 z-10 mt-2 w-44 divide-y divide-gray-100 rounded-lg bg-white shadow-sm dark:divide-gray-600 dark:bg-gray-700"
+		>
+			<section class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+				<p>{authStore.user?.fullName}</p>
+				<p class="truncate font-medium">{authStore.user?.email}</p>
+			</section>
+			<ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
+				{#each menuItems as item (item.link)}
+					<li>
+						<a
+							href={item.link}
+							class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+						>
+							{item.label}
+						</a>
+					</li>
+				{/each}
+			</ul>
+			<section class="py-1">
+				<button
+					type="button"
+					onclick={signout}
+					class="w-full cursor-pointer px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+				>
+					Sign out
+				</button>
+			</section>
+		</nav>
+	{/if}
+</div>
