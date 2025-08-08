@@ -1,10 +1,11 @@
+import { browser } from '$app/environment';
 import { goto } from '$app/navigation';
 import api from '$lib/api/api';
 import type { LoginResponse } from '$lib/types/auth.type';
 import { jwtDecode } from 'jwt-decode';
 
 let authData = $state<LoginResponse | null>(
-	typeof window !== 'undefined' && window.sessionStorage.getItem('AUTH')
+	browser && window.sessionStorage.getItem('AUTH')
 		? JSON.parse(window.sessionStorage.getItem('AUTH')!)
 		: null
 );
@@ -17,7 +18,7 @@ const userInitials = $derived(user?.sub?.substring(0, 2));
 
 function setAuth(newAuth: LoginResponse | null) {
 	authData = newAuth;
-	if (typeof window !== 'undefined') {
+	if (browser) {
 		if (newAuth) {
 			window.sessionStorage.setItem('AUTH', JSON.stringify(newAuth));
 		} else {
