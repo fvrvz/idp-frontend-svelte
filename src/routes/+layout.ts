@@ -3,6 +3,8 @@ import { authStore } from '$lib/state/auth.svelte.js';
 import { redirect } from '@sveltejs/kit';
 import type { LayoutLoad } from './$types';
 
+export const prerender = true;
+
 const PUBLIC_ROUTES = ['/login', '/register'];
 
 export const load: LayoutLoad = async ({ url }) => {
