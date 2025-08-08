@@ -38,7 +38,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build the Svelte Site
-        run: pnpm exec vite build --base=/idp-frontend-svelte/
+        run: pnpm run build
 
       - name: Upload artifact to GitHub Pages
         uses: actions/upload-pages-artifact@v3
