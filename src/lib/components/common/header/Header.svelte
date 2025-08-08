@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
+	import { type Pathname } from '$app/types';
 	import { authStore } from '$lib/state/auth.svelte';
 	import ThemeSwitch from '../theme-switch/ThemeSwitch.svelte';
 	import UserControls from '../user-controls/UserControls.svelte';
@@ -21,7 +23,7 @@
 		{#if authStore.accessToken}
 			<UserControls />
 		{:else}
-			<a href={destination.link}>{destination.title}</a>
+			<a href={resolve(destination.link as Pathname)}>{destination.title}</a>
 		{/if}
 		<ThemeSwitch />
 	</section>

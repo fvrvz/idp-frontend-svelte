@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import Button from '$lib/components/common/button/Button.svelte';
 	import Input from '$lib/components/common/input/Input.svelte';
 	import { authStore } from '$lib/state/auth.svelte';
@@ -38,7 +39,7 @@
 
 			authStore.setAuth(json);
 
-			goto('/');
+			goto(resolve('/'));
 		} catch (e) {
 			error = (e as Error).message;
 		} finally {
