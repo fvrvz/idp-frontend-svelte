@@ -1,5 +1,6 @@
 import { browser } from '$app/environment';
 import { goto } from '$app/navigation';
+import { resolve } from '$app/paths';
 import api from '$lib/api/api';
 import type { LoginResponse } from '$lib/types/auth.type';
 import { jwtDecode } from 'jwt-decode';
@@ -34,7 +35,7 @@ async function logout() {
 		console.error('Logout failed:', e);
 	} finally {
 		setAuth(null);
-		goto('/login');
+		goto(resolve('/login'));
 	}
 }
 

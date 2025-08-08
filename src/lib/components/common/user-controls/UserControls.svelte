@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { afterNavigate } from '$app/navigation';
+	import { resolve } from '$app/paths';
+	import { type Pathname } from '$app/types';
 	import { authStore } from '$lib/state/auth.svelte';
 	import type { MenuItem } from '$lib/types/common..type';
 	import Avatar from '../avatar/Avatar.svelte';
@@ -37,7 +39,7 @@
 				{#each menuItems as item (item.link)}
 					<li>
 						<a
-							href={item.link}
+							href={resolve(item.link as Pathname)}
 							class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
 						>
 							{item.label}

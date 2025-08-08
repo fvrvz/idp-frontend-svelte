@@ -1,4 +1,5 @@
 import { browser } from '$app/environment';
+import { resolve } from '$app/paths';
 import { authStore } from '$lib/state/auth.svelte.js';
 import { redirect } from '@sveltejs/kit';
 import type { LayoutLoad } from './$types';
@@ -13,7 +14,7 @@ export const load: LayoutLoad = async ({ url }) => {
 	const isPublic = PUBLIC_ROUTES.includes(path);
 
 	if (!isPublic && !authStore.accessToken && browser) {
-		throw redirect(302, '/login');
+		throw redirect(302, resolve('/login'));
 	}
 
 	return {};
