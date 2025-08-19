@@ -1,14 +1,13 @@
 <script lang="ts">
-	import favicon from '$lib/assets/favicon.svg';
 	import Header from '$lib/components/common/header/Header.svelte';
-	import '../app.css';
+	import '../../app.css';
 
 	let { children } = $props();
 </script>
 
-<svelte:head>
+<!-- <svelte:head>
 	<link rel="icon" href={favicon} />
-</svelte:head>
+</svelte:head> -->
 
 <main class="mx-auto max-w-7xl">
 	<Header />

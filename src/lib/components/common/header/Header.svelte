@@ -6,16 +6,35 @@
 	import ThemeSwitch from '../theme-switch/ThemeSwitch.svelte';
 	import UserControls from '../user-controls/UserControls.svelte';
 
+	interface Props {
+		toggleSidebar: (isOpen: boolean) => void;
+	}
+
+	const { toggleSidebar }: Props = $props();
+
 	let destination = $derived(
 		page.url.pathname.includes('/login')
 			? { title: 'Create an account', link: '/register' }
 			: { title: 'Signin', link: '/login' }
 	);
+
+	let isSidebarOpen = $state<boolean>(false);
+
+	function toggleSidebarFunc() {
+		isSidebarOpen = !isSidebarOpen;
+		toggleSidebar(isSidebarOpen);
+	}
 </script>
 
 <header class="flex items-center justify-between bg-gray-800 px-4 py-2 text-gray-50">
 	<section class="flex items-center gap-3">
-		<span class="icon-[mdi-light--menu] text-2xl"></span>
+		<button onclick={toggleSidebarFunc} aria-label="button">
+			<span
+				class={'text-2xl ' + isSidebarOpen
+					? 'icon-[mdi-light--menu]'
+					: 'icon-[mdi-light--chevron-double-right]'}
+			></span>
+		</button>
 		<h1 class="text-3xl font-bold select-none">IDP</h1>
 	</section>
 
