@@ -8,7 +8,7 @@
 	import UserControls from '../user-controls/UserControls.svelte';
 
 	interface Props {
-		class: ClassValue;
+		class?: ClassValue;
 	}
 
 	interface Destination {
