@@ -8,7 +8,7 @@
 
 	const formData = $state({
 		userId: '',
-		password: ''
+		password: '',
 	});
 
 	let error: string = '';
@@ -30,7 +30,7 @@
 			const response = await fetch('http://localhost:8080/api/v1/auth/login', {
 				method: 'POST',
 				body: JSON.stringify(formData),
-				headers: { 'Content-Type': 'application/json' }
+				headers: { 'Content-Type': 'application/json' },
 			});
 
 			if (!response.ok) throw new Error(await response.text());
@@ -51,7 +51,7 @@
 </script>
 
 <div class="m-auto max-w-4xl">
-	<h1 class="mb-10 text-4xl font-extrabold text-gray-900">Login</h1>
+	<h1 class="mb-10 text-4xl font-extrabold text-gray-900 dark:text-white">Login</h1>
 	<form onsubmit={submit} class="flex flex-col flex-wrap bg-gray-50">
 		<section class=" flex items-stretch">
 			<article class="flex flex-1/2 items-center justify-center bg-blue-900"></article>
