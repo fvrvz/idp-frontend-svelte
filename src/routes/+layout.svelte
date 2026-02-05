@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Header from '$lib/components/common/header/Header.svelte';
 	import Sidebar from '$lib/components/common/sidebar/Sidebar.svelte';
-	import '../../app.css';
+	import '../app.css';
 
 	let { children } = $props();
 </script>
