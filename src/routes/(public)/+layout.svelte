@@ -4,12 +4,14 @@
 	import '../../app.css';
 
 	let { children } = $props();
-
-	let isSidebarOpen = $state<boolean>(false);
 </script>
 
-<main class="mx-auto max-w-7xl">
-	<Header toggleSidebar={(isOpen) => (isSidebarOpen = isOpen)} />
-	<Sidebar isOpen={isSidebarOpen} />
-	{@render children()}
-</main>
+<div
+	class="mx-auto grid max-w-7xl grid-cols-[auto_1fr] grid-rows-[4rem_1fr] dark:bg-gray-700 dark:text-amber-50"
+>
+	<Sidebar />
+	<Header class="col-start-2" />
+	<main class="col-start-2 bg-indigo-50 pt-4 pr-4 pl-6 dark:bg-indigo-950">
+		{@render children()}
+	</main>
+</div>

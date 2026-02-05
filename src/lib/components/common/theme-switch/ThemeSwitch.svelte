@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { themeStore } from '$lib/state/theme.svelte';
 	import { THEME } from '$lib/types/theme.type';
+	import { Moon, Sun } from 'lucide-svelte';
 	import Switch from '../switch/Switch.svelte';
 
 	const theme = themeStore();
@@ -12,4 +13,4 @@
 	}
 </script>
 
-<Switch bind:isChecked={checked} onChange={toggleTheme} />
+<Switch bind:isChecked={checked} onChange={toggleTheme} Icon={checked ? Moon : Sun} size="lg" />

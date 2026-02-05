@@ -3,46 +3,39 @@
 	import { page } from '$app/state';
 	import { type Pathname } from '$app/types';
 	import { authStore } from '$lib/state/auth.svelte';
+	import type { ClassValue } from 'svelte/elements';
 	import ThemeSwitch from '../theme-switch/ThemeSwitch.svelte';
 	import UserControls from '../user-controls/UserControls.svelte';
 
 	interface Props {
-		toggleSidebar: (isOpen: boolean) => void;
+		class: ClassValue;
 	}
 
-	const { toggleSidebar }: Props = $props();
+	interface Destination {
+		title: string;
+		link: Pathname;
+	}
 
-	let destination = $derived(
+	let { class: className }: Props = $props();
+
+	let destination = $derived<Destination>(
 		page.url.pathname.includes('/login')
 			? { title: 'Create an account', link: '/register' }
 			: { title: 'Signin', link: '/login' }
 	);
-
-	let isSidebarOpen = $state<boolean>(false);
-
-	function toggleSidebarFunc() {
-		isSidebarOpen = !isSidebarOpen;
-		toggleSidebar(isSidebarOpen);
-	}
 </script>
 
-<header class="flex items-center justify-between bg-gray-800 px-4 py-2 text-gray-50">
-	<section class="flex items-center gap-3">
-		<button onclick={toggleSidebarFunc} aria-label="button">
-			<span
-				class={'text-2xl ' + isSidebarOpen
-					? 'icon-[mdi-light--menu]'
-					: 'icon-[mdi-light--chevron-double-right]'}
-			></span>
-		</button>
-		<h1 class="text-3xl font-bold select-none">IDP</h1>
-	</section>
-
-	<section class="flex items-center gap-3">
+<header class="flex items-center justify-between px-4 py-2 {className}">
+	<section class="ml-auto flex items-center gap-3">
 		{#if authStore.accessToken}
 			<UserControls />
 		{:else}
-			<a href={resolve(destination.link as Pathname)}>{destination.title}</a>
+			<a
+				href={resolve(destination.link)}
+				class="rounded-lg px-4 pt-1.5 pb-2 text-gray-800 transition-all hover:bg-amber-300 dark:text-white dark:hover:text-gray-800"
+			>
+				{destination.title}
+			</a>
 		{/if}
 		<ThemeSwitch />
 	</section>

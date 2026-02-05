@@ -1,14 +1,28 @@
 <script lang="ts">
-	import type { SwitchProp } from '$lib/types/switch.type';
+	import { SizeMap, type SwitchProp } from '$lib/types/switch.type';
 
-	let { label, isChecked = $bindable(), onChange }: SwitchProp = $props();
+	let { label, isChecked = $bindable(), onChange, Icon, size = 'default' }: SwitchProp = $props();
 </script>
 
-<label class="inline-flex cursor-pointer items-center">
+<label class="relative inline-flex cursor-pointer items-center">
 	<input type="checkbox" bind:checked={isChecked} class="peer sr-only" onchange={onChange} />
 	<div
-		class="peer relative h-6 w-11 rounded-full bg-gray-200 peer-checked:bg-blue-600 peer-focus:ring-4 peer-focus:ring-blue-300 peer-focus:outline-none after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white rtl:peer-checked:after:-translate-x-full dark:border-gray-600 dark:bg-gray-700 dark:peer-checked:bg-blue-600 dark:peer-focus:ring-blue-800"
+		class="relative rounded-full bg-gray-200 transition-all peer-checked:bg-blue-600 after:absolute
+		       after:top-[2px] after:left-[2px] after:rounded-full
+		       hover:border hover:border-red-700 {SizeMap[size].knob}
+		       after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full
+		       peer-checked:after:border-white dark:bg-gray-700 dark:peer-checked:bg-blue-600"
 	></div>
+	{#if Icon}
+		<div
+			class="pointer-events-none absolute top-[2px] left-[2px] flex items-center
+			       justify-center transition-transform
+			       peer-checked:translate-x-full {SizeMap[size].iconWrapper}"
+		>
+			<Icon class="text-gray-800 peer-checked:text-white {SizeMap[size].icon}" />
+		</div>
+	{/if}
+
 	{#if label}
 		<span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">{label}</span>
 	{/if}
