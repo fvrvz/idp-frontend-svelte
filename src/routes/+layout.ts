@@ -4,7 +4,10 @@ import { authStore } from '$lib/state/auth.svelte.js';
 import { redirect } from '@sveltejs/kit';
 import type { LayoutLoad } from './$types';
 
-export const prerender = true;
+export const prerender = false;
+export const ssr = false;
+export const csr = true;
+export const trailingSlash = 'always';
 
 const PUBLIC_ROUTES = ['/login', '/register'];
 
