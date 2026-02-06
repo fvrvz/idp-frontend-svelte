@@ -13,4 +13,9 @@
 	}
 </script>
 
-<Switch bind:isChecked={checked} onChange={toggleTheme} Icon={checked ? Moon : Sun} size="lg" />
+<Switch
+	bind:isChecked={checked}
+	onChange={toggleTheme}
+	Icon={checked ? Moon : Sun}
+	size="lg"
+/>

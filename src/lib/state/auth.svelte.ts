@@ -13,7 +13,9 @@ let authData = $state<LoginResponse | null>(
 
 const userProfile = { fullName: 'Full Name', email: 'user@email.com' };
 
-const user = $derived(authData ? { ...jwtDecode(authData.access_token), ...userProfile } : null);
+const user = $derived(
+	authData ? { ...jwtDecode(authData.access_token), ...userProfile } : null
+);
 
 const userInitials = $derived(user?.sub?.substring(0, 2));
 
@@ -50,5 +52,5 @@ export const authStore = {
 		return userInitials;
 	},
 	setAuth,
-	logout
+	logout,
 };

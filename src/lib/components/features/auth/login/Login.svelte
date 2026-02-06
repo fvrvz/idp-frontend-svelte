@@ -51,12 +51,18 @@
 </script>
 
 <div class="m-auto max-w-4xl">
-	<h1 class="mb-10 text-4xl font-extrabold text-gray-900 dark:text-white">Login</h1>
+	<h1 class="mb-10 text-4xl font-extrabold text-gray-900 dark:text-white">
+		Login
+	</h1>
 	<form onsubmit={submit} class="flex flex-col flex-wrap bg-gray-50">
 		<section class=" flex items-stretch">
-			<article class="flex flex-1/2 items-center justify-center bg-blue-900"></article>
+			<article
+				class="flex flex-1/2 items-center justify-center bg-blue-900"
+			></article>
 
-			<div class="flex flex-1/2 flex-col items-center justify-around gap-5 p-5 pl-0">
+			<div
+				class="flex flex-1/2 flex-col items-center justify-around gap-5 p-5 pl-0"
+			>
 				<Input
 					label="Username"
 					type="text"

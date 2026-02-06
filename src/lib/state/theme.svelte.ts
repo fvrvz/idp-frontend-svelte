@@ -26,6 +26,6 @@ export function themeStore() {
 		set currentTheme(newTheme: ThemeValue) {
 			theme = newTheme;
 		},
-		toggleTheme
+		toggleTheme,
 	};
 }

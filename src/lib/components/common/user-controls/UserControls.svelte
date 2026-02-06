@@ -8,7 +8,7 @@
 
 	const menuItems: MenuItem[] = [
 		{ label: 'Settings', link: '/settings' },
-		{ label: 'Profile', link: '/profile' }
+		{ label: 'Profile', link: '/profile' },
 	];
 
 	let isOpen = $state(false);
@@ -35,7 +35,10 @@
 				<p>{authStore.user?.fullName}</p>
 				<p class="truncate font-medium">{authStore.user?.email}</p>
 			</section>
-			<ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
+			<ul
+				class="py-2 text-sm text-gray-700 dark:text-gray-200"
+				aria-labelledby="avatarButton"
+			>
 				{#each menuItems as item (item.link)}
 					<li>
 						<a

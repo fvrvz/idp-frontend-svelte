@@ -22,7 +22,9 @@
 			>{initials.length > 2 ? initials?.substring(0, 2) : initials}</span
 		>
 	{:else}
-		<div class="relative size-10 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-600">
+		<div
+			class="relative size-10 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-600"
+		>
 			<User class="absolute -left-1 size-12 text-gray-400" />
 		</div>
 	{/if}
