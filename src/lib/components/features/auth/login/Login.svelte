@@ -61,7 +61,9 @@
 	</div>
 
 	<div class="flex items-center justify-between gap-2 max-sm:flex-col">
-		<A class="text-sm sm:text-base" href="/register">Create an account</A>
+		<A class="text-sm sm:text-base" href={resolve('/register')}
+			>Create an account</A
+		>
 		<Button type="submit" form={$formId} class="w-full cursor-pointer sm:w-auto">
 			Login
 		</Button>
