@@ -10,6 +10,6 @@ export class Auth {
 	}
 
 	static logout() {
-		return promiseWrapper<void>(api.post('/auth/logout'));
+		return promiseWrapper<void>(api.get('/auth/logout'));
 	}
 }
