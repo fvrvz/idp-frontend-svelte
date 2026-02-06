@@ -1,11 +1,22 @@
 <script lang="ts">
 	import { SizeMap, type SwitchProp } from '$lib/types/switch.type';
 
-	let { label, isChecked = $bindable(), onChange, Icon, size = 'default' }: SwitchProp = $props();
+	let {
+		label,
+		isChecked = $bindable(),
+		onChange,
+		Icon,
+		size = 'default',
+	}: SwitchProp = $props();
 </script>
 
 <label class="relative inline-flex cursor-pointer items-center">
-	<input type="checkbox" bind:checked={isChecked} class="peer sr-only" onchange={onChange} />
+	<input
+		type="checkbox"
+		bind:checked={isChecked}
+		class="peer sr-only"
+		onchange={onChange}
+	/>
 	<div
 		class="relative rounded-full bg-gray-200 transition-all peer-checked:bg-blue-600 after:absolute
 		       after:top-[2px] after:left-[2px] after:rounded-full
@@ -24,6 +35,8 @@
 	{/if}
 
 	{#if label}
-		<span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">{label}</span>
+		<span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300"
+			>{label}</span
+		>
 	{/if}
 </label>

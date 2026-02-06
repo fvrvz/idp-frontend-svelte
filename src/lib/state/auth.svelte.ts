@@ -1,11 +1,11 @@
 import { browser } from '$app/environment';
 import { goto } from '$app/navigation';
 import { resolve } from '$app/paths';
-import api from '$lib/api/api';
-import type { LoginResponse } from '$lib/types/auth.type';
+import { Auth } from '$lib/resources/auth';
+import type { Authentication } from '$lib/types/auth.type';
 import { jwtDecode } from 'jwt-decode';
 
-let authData = $state<LoginResponse | null>(
+let authData = $state<Authentication | null>(
 	browser && window.sessionStorage.getItem('AUTH')
 		? JSON.parse(window.sessionStorage.getItem('AUTH')!)
 		: null
@@ -13,11 +13,13 @@ let authData = $state<LoginResponse | null>(
 
 const userProfile = { fullName: 'Full Name', email: 'user@email.com' };
 
-const user = $derived(authData ? { ...jwtDecode(authData.access_token), ...userProfile } : null);
+const user = $derived(
+	authData ? { ...jwtDecode(authData.access_token), ...userProfile } : null
+);
 
 const userInitials = $derived(user?.sub?.substring(0, 2));
 
-function setAuth(newAuth: LoginResponse | null) {
+function setAuth(newAuth: Authentication | null) {
 	authData = newAuth;
 	if (browser) {
 		if (newAuth) {
@@ -29,14 +31,15 @@ function setAuth(newAuth: LoginResponse | null) {
 }
 
 async function logout() {
-	try {
-		await api.post('/auth/logout');
-	} catch (e) {
-		console.error('Logout failed:', e);
-	} finally {
-		setAuth(null);
-		goto(resolve('/login'));
+	const [err] = await Auth.logout();
+
+	if (err) {
+		console.error('Logout failed:', err);
+		return;
 	}
+
+	setAuth(null);
+	goto(resolve('/login'));
 }
 
 export const authStore = {
@@ -50,5 +53,5 @@ export const authStore = {
 		return userInitials;
 	},
 	setAuth,
-	logout
+	logout,
 };

@@ -7,7 +7,7 @@
 </script>
 
 <div
-	class="mx-auto grid max-w-7xl grid-cols-[auto_1fr] grid-rows-[4rem_1fr] dark:bg-gray-700 dark:text-amber-50"
+	class="mx-auto grid max-w-450 grid-cols-[auto_1fr] grid-rows-[4rem_minmax(calc(100dvh-4rem),1fr)] dark:bg-gray-700 dark:text-amber-50"
 >
 	<Sidebar />
 	<Header class="col-start-2" />

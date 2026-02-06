@@ -1,84 +1,69 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import Button from '$lib/components/common/button/Button.svelte';
-	import Input from '$lib/components/common/input/Input.svelte';
+	import { Auth } from '$lib/resources/auth';
+	import { loginSchema } from '$lib/schemas/auth';
 	import { authStore } from '$lib/state/auth.svelte';
-	import type { LoginResponse } from '$lib/types/auth.type';
+	import { A, Button, Input, Label } from 'flowbite-svelte';
+	import { defaults, superForm } from 'sveltekit-superforms';
+	import { zod4, zod4Client } from 'sveltekit-superforms/adapters';
 
-	const formData = $state({
-		userId: '',
-		password: '',
-	});
+	const superform = superForm(
+		defaults({ userId: '', password: '' }, zod4(loginSchema)),
+		{
+			validators: zod4Client(loginSchema),
+			SPA: true,
+			onUpdate: async ({ form }) => {
+				if (!form.valid || !$tainted) return;
 
-	let error: string = '';
-	let success: boolean = false;
-	let isLoading = $state(false);
+				const [err, response] = await Auth.login(form.data);
 
-	async function submit(evt: SubmitEvent) {
-		evt.preventDefault();
+				if (err) {
+					throw new Error('Something went wrong', err);
+				}
 
-		if (hasUnsavedChanges) {
-			return;
+				authStore.setAuth(response);
+			},
+			onUpdated: () => {
+				goto(resolve('/'));
+			},
 		}
+	);
 
-		error = '';
-		success = false;
-		isLoading = true;
-
-		try {
-			const response = await fetch('http://localhost:8080/api/v1/auth/login', {
-				method: 'POST',
-				body: JSON.stringify(formData),
-				headers: { 'Content-Type': 'application/json' },
-			});
-
-			if (!response.ok) throw new Error(await response.text());
-
-			const json: LoginResponse = await response.json();
-
-			authStore.setAuth(json);
-
-			goto(resolve('/'));
-		} catch (e) {
-			error = (e as Error).message;
-		} finally {
-			isLoading = false;
-		}
-	}
-
-	const hasUnsavedChanges = $derived(Object.values(formData).some((e) => !e));
+	const { form, tainted, enhance, formId } = superform;
 </script>
 
-<div class="m-auto max-w-4xl">
-	<h1 class="mb-10 text-4xl font-extrabold text-gray-900 dark:text-white">Login</h1>
-	<form onsubmit={submit} class="flex flex-col flex-wrap bg-gray-50">
-		<section class=" flex items-stretch">
-			<article class="flex flex-1/2 items-center justify-center bg-blue-900"></article>
+<form
+	use:enhance
+	class="m-auto max-w-lg space-y-4 rounded-lg border border-gray-300 bg-gray-50 p-6"
+	id={$formId}
+>
+	<h1 class="mb-5 text-4xl dark:text-white">Login</h1>
+	<div class="space-y-2">
+		<Label for="username">Username</Label>
+		<Input
+			bind:value={$form.userId}
+			type="text"
+			required
+			id="username"
+			placeholder="Enter username or email"
+		/>
+	</div>
+	<div class="space-y-2">
+		<Label for="password">Password</Label>
+		<Input
+			type="password"
+			bind:value={$form.password}
+			id="password"
+			placeholder="Enter password"
+			required
+		/>
+	</div>
 
-			<div class="flex flex-1/2 flex-col items-center justify-around gap-5 p-5 pl-0">
-				<Input
-					label="Username"
-					type="text"
-					name="username"
-					id="username"
-					bind:value={formData.userId}
-					required
-					class="shrink grow"
-				/>
-				<Input
-					label="Password"
-					type="password"
-					name="password"
-					id="password"
-					bind:value={formData.password}
-					required
-					class="shrink grow"
-				/>
-				<div class="flex w-full items-center justify-center gap-4">
-					<Button type="submit">Login</Button>
-				</div>
-			</div>
-		</section>
-	</form>
-</div>
+	<div class="flex items-center justify-between gap-2 max-sm:flex-col">
+		<A class="text-sm sm:text-base" href="/register">Create an account</A>
+		<Button type="submit" form={$formId} class="w-full cursor-pointer sm:w-auto">
+			Login
+		</Button>
+	</div>
+</form>
