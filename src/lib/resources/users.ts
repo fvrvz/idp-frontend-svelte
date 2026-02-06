@@ -8,4 +8,8 @@ export class Users {
 			api.post('/users/register', body, { withCredentials: false })
 		);
 	}
+
+	static get() {
+		return promiseWrapper(api.get('/users'));
+	}
 }

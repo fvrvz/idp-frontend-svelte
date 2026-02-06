@@ -11,13 +11,18 @@ let authData = $state<Authentication | null>(
 		: null
 );
 
-const userProfile = { fullName: 'Full Name', email: 'user@email.com' };
+const userProfile = {
+	firstName: 'Default',
+	lastName: 'User',
+	fullName: 'Default User',
+	email: 'user@email.com',
+};
 
 const user = $derived(
 	authData ? { ...jwtDecode(authData.access_token), ...userProfile } : null
 );
 
-const userInitials = $derived(user?.sub?.substring(0, 2));
+const userInitials = $derived(`${user?.firstName?.[0]}${user?.lastName?.[0]}`);
 
 function setAuth(newAuth: Authentication | null) {
 	authData = newAuth;
