@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { authStore } from '$lib/state/auth.svelte';
+	import { DarkMode } from 'flowbite-svelte';
 	import type { ClassValue } from 'svelte/elements';
-	import ThemeSwitch from '../theme-switch/ThemeSwitch.svelte';
 	import UserControls from '../user-controls/UserControls.svelte';
 
 	interface Props {
@@ -16,6 +16,6 @@
 		{#if authStore.accessToken}
 			<UserControls />
 		{/if}
-		<ThemeSwitch />
+		<DarkMode class="rounded-full" />
 	</section>
 </header>
