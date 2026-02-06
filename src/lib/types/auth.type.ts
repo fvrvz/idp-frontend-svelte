@@ -1,4 +1,4 @@
-import type { loginSchema } from '$lib/schemas/auth';
+import type { loginSchema, registerSchema } from '$lib/schemas/auth';
 import type z from 'zod';
 
 export interface Authentication {
@@ -8,3 +8,5 @@ export interface Authentication {
 }
 
 export type Login = z.infer<typeof loginSchema>;
+
+export type User = z.infer<typeof registerSchema>;

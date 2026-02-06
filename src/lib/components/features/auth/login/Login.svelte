@@ -42,11 +42,11 @@
 	<div class="space-y-2">
 		<Label for="username">Username</Label>
 		<Input
-			type="text"
 			bind:value={$form.userId}
+			type="text"
+			required
 			id="username"
 			placeholder="Enter username or email"
-			required
 		/>
 	</div>
 	<div class="space-y-2">
