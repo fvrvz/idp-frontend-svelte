@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { Users } from '$lib/resources/users';
 	import { registerSchema } from '$lib/schemas/auth';
 	import dayjs from 'dayjs';
@@ -30,29 +31,26 @@
 >
 	<h1 class="mb-5 text-4xl dark:text-white">Register</h1>
 	<article class="grid sm:grid-cols-2 items-center gap-4">
-			<div class="space-y-2">
-				<Label for="fname">First Name</Label>
-				<Input
-					type="text"
-					bind:value={$form.firstName}
-					id="fname"
-					placeholder="ex: John"
-					required
-				/>
-			</div>
+		<div class="space-y-2">
+			<Label for="fname">First Name</Label>
+			<Input
+				type="text"
+				bind:value={$form.firstName}
+				id="fname"
+				placeholder="ex: John"
+				required
+			/>
+		</div>
 
-			<div class="space-y-2">
-				<Label for="lname">Last Name</Label>
-				<Input
+		<div class="space-y-2">
+			<Label for="lname">Last Name</Label>
+			<Input
 				type="text"
 				bind:value={$form.lastName}
 				id="lname"
-					placeholder="ex: Doe"
-			
-				/>
-			</div>
-	
-		
+				placeholder="ex: Doe"
+			/>
+		</div>
 
 		<div class="space-y-2">
 			<Label for="email">Email</Label>
@@ -71,7 +69,7 @@
 				id="dob"
 				required
 				value={$form.DOB ? dayjs($form.DOB).toDate() : undefined}
-				onselect={(date) => $form.DOB = date.toString()}
+				onselect={(date) => ($form.DOB = date.toString())}
 			/>
 		</div>
 
@@ -100,7 +98,12 @@
 	</article>
 
 	<div class="flex items-center justify-between gap-2 max-sm:flex-col">
-		<span class="text-gray-600">Already have an account? <A class="text-sm sm:text-base" href="/login">Signin</A></span>
+		<span class="text-gray-600"
+			>Already have an account? <A
+				class="text-sm sm:text-base"
+				href={resolve('/login')}>Signin</A
+			></span
+		>
 		<Button type="submit" form={$formId} class="w-full cursor-pointer sm:w-auto">
 			Create
 		</Button>
