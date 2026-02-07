@@ -11,7 +11,9 @@
 >
 	<Sidebar />
 	<Header class="col-start-2" />
-	<main class="col-start-2 bg-indigo-50 pt-4 pr-4 pl-6 dark:bg-indigo-950">
+	<main
+		class="col-start-2 bg-indigo-50 pt-4 pr-4 pl-6 dark:bg-indigo-950 max-w-dvw overflow-auto"
+	>
 		{@render children()}
 	</main>
 </div>
