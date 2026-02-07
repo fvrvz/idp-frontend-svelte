@@ -1,9 +1,10 @@
 <script lang="ts">
+	import Table from '$lib/components/common/table/Table.svelte';
 	import { Users } from '$lib/resources/users';
 	import { authStore } from '$lib/state/auth.svelte';
 	import type { User } from '$lib/types/auth.type';
+	import type { TableHeader } from '$lib/types/table.type';
 	import dayjs from 'dayjs';
-	import { Spinner, Table, type TableItemType } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 
 	let loading = $state(true);
@@ -20,12 +21,16 @@
 		}
 		loading = false;
 	});
+
+	const headers: TableHeader<User>[] = [
+		{ key: 'fullName', label: 'Name' },
+		// { key: 'username', label: 'UserID' },
+		{ key: 'email', label: 'Email' },
+		{ key: 'DOB', label: 'Date of Birth' },
+		{ key: 'createdAt', label: 'Created At' },
+	];
 </script>
 
 <h1 class="text-4xl mb-4">Welcom {authStore.user?.fullName}</h1>
 
-{#if loading}
-	<Spinner class="text-center" />
-{:else if users.length}
-	<Table items={users as unknown as TableItemType[]} striped hoverable />
-{/if}
+<Table canSelect data={users} {loading} {headers} trackBy="username" />
