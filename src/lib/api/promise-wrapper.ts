@@ -1,6 +1,6 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 
-export type Result<T> = [AxiosError | null, T | null];
+export type Result<T> = [AxiosError, null] | [null, T];
 
 export async function promiseWrapper<T>(
 	promise: Promise<AxiosResponse<T>>

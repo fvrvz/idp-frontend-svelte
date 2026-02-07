@@ -1,5 +1,6 @@
 import type { loginSchema, registerSchema } from '$lib/schemas/auth';
 import type z from 'zod';
+import type { BaseModel } from './common..type';
 
 export interface Authentication {
 	access_token: string;
@@ -9,4 +10,4 @@ export interface Authentication {
 
 export type Login = z.infer<typeof loginSchema>;
 
-export type User = z.infer<typeof registerSchema>;
+export type User = z.infer<typeof registerSchema> & BaseModel;
