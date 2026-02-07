@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import { Auth } from '$lib/resources/auth';
 	import { loginSchema } from '$lib/schemas/auth';
-	import { authStore } from '$lib/state/auth.svelte';
+	import { authService } from '$lib/services/auth.service';
 	import { A, Button, Input, Label } from 'flowbite-svelte';
 	import { defaults, superForm } from 'sveltekit-superforms';
 	import { zod4, zod4Client } from 'sveltekit-superforms/adapters';
@@ -15,14 +14,7 @@
 			SPA: true,
 			onUpdate: async ({ form }) => {
 				if (!form.valid || !$tainted) return;
-
-				const [err, response] = await Auth.login(form.data);
-
-				if (err) {
-					throw new Error('Something went wrong', err);
-				}
-
-				authStore.setAuth(response);
+				await authService.login(form.data);
 			},
 			onUpdated: () => {
 				goto(resolve('/'));
@@ -64,7 +56,11 @@
 		<A class="text-sm sm:text-base" href={resolve('/register')}
 			>Create an account</A
 		>
-		<Button type="submit" form={$formId} class="w-full cursor-pointer sm:w-auto">
+		<Button
+			type="submit"
+			form={$formId}
+			class="w-full cursor-pointer sm:w-auto"
+		>
 			Login
 		</Button>
 	</div>

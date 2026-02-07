@@ -1,7 +1,4 @@
 import { browser } from '$app/environment';
-import { goto } from '$app/navigation';
-import { resolve } from '$app/paths';
-import { Auth } from '$lib/resources/auth';
 import type { Authentication } from '$lib/types/auth.type';
 import { jwtDecode } from 'jwt-decode';
 
@@ -35,18 +32,6 @@ function setAuth(newAuth: Authentication | null) {
 	}
 }
 
-async function logout() {
-	const [err] = await Auth.logout();
-
-	if (err) {
-		console.error('Logout failed:', err);
-		return;
-	}
-
-	setAuth(null);
-	goto(resolve('/login'));
-}
-
 export const authStore = {
 	get user() {
 		return user;
@@ -58,5 +43,4 @@ export const authStore = {
 		return userInitials;
 	},
 	setAuth,
-	logout,
 };
