@@ -7,7 +7,7 @@
 <aside
 	class="absolute z-1 h-dvh bg-gray-800 text-gray-50 transition-all max-sm:shadow-lg sm:relative dark:bg-gray-400 dark:text-gray-800 {isOpen
 		? 'w-full sm:w-72'
-		: 'w-0 sm:w-16'}"
+		: 'w-0 sm:w-14'}"
 >
 	<button
 		type="button"
