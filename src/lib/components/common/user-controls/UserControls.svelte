@@ -5,6 +5,7 @@
 	import { authService } from '$lib/services/auth.service';
 	import { authStore } from '$lib/state/auth.svelte';
 	import type { MenuItem } from '$lib/types/common..type';
+	import { onDestroy, onMount } from 'svelte';
 	import Avatar from '../avatar/Avatar.svelte';
 
 	const menuItems: MenuItem[] = [
@@ -13,6 +14,7 @@
 	];
 
 	let isOpen = $state(false);
+	let container: HTMLDivElement;
 
 	function signout() {
 		isOpen = false;
@@ -20,10 +22,30 @@
 	}
 
 	afterNavigate(() => (isOpen = false));
+
+	function handleClickOutside(event: MouseEvent) {
+		if (!container.contains(event.target as Node)) {
+			isOpen = false;
+		}
+	}
+
+	onMount(() => {
+		document.addEventListener('click', handleClickOutside);
+	});
+
+	onDestroy(() => {
+		document.removeEventListener('click', handleClickOutside);
+	});
 </script>
 
-<div class="relative">
-	<button onclick={() => (isOpen = !isOpen)} class="cursor-pointer">
+<div class="relative" bind:this={container}>
+	<button
+		onclick={(e) => {
+			e.stopPropagation();
+			isOpen = !isOpen;
+		}}
+		class="cursor-pointer"
+	>
 		<Avatar initials={authStore.userInitials} />
 	</button>
 
