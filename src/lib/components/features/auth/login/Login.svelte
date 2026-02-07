@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import { loginSchema } from '$lib/schemas/auth';
+	import { loginSchema } from '$lib/schemas/auth.schema';
 	import { authService } from '$lib/services/auth.service';
 	import { A, Button, Input, Label } from 'flowbite-svelte';
 	import { defaults, superForm } from 'sveltekit-superforms';

@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { Users } from '$lib/resources/users';
-	import { registerSchema } from '$lib/schemas/auth';
+	import { userSchema } from '$lib/schemas/user.schema';
 	import dayjs from 'dayjs';
 	import { A, Button, Datepicker, Input, Label } from 'flowbite-svelte';
 	import { defaults, superForm } from 'sveltekit-superforms';
 	import { zod4, zod4Client } from 'sveltekit-superforms/adapters';
 
-	const superform = superForm(defaults(zod4(registerSchema)), {
-		validators: zod4Client(registerSchema),
+	const superform = superForm(defaults(zod4(userSchema)), {
+		validators: zod4Client(userSchema),
 		SPA: true,
 		onUpdate: async ({ form }) => {
 			if (!form.valid || !$tainted) return;
@@ -98,13 +98,15 @@
 	</article>
 
 	<div class="flex items-center justify-between gap-2 max-sm:flex-col">
-		<span class="text-gray-600"
-			>Already have an account? <A
-				class="text-sm sm:text-base"
-				href={resolve('/login')}>Signin</A
-			></span
+		<span class="text-gray-600">
+			Already have an account?
+			<A class="text-sm sm:text-base" href={resolve('/login')}>Signin</A>
+		</span>
+		<Button
+			type="submit"
+			form={$formId}
+			class="w-full cursor-pointer sm:w-auto"
 		>
-		<Button type="submit" form={$formId} class="w-full cursor-pointer sm:w-auto">
 			Create
 		</Button>
 	</div>
