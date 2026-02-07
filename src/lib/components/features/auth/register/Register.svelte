@@ -21,7 +21,7 @@
 		},
 	});
 
-	const { form, tainted, enhance, formId } = superform;
+	const { form, tainted, enhance, formId, submitting } = superform;
 </script>
 
 <form
@@ -106,6 +106,7 @@
 			type="submit"
 			form={$formId}
 			class="w-full cursor-pointer sm:w-auto"
+			loading={$submitting}
 		>
 			Create
 		</Button>
