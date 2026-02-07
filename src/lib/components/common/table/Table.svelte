@@ -89,7 +89,9 @@
 			</TableHeadCell>
 		{/if}
 		{#each headers as header}
-			<TableHeadCell class="normal-case">{header.label}</TableHeadCell>
+			<TableHeadCell class="normal-case {header.class}">
+				{header.label}
+			</TableHeadCell>
 		{/each}
 	</TableHead>
 
