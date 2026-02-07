@@ -31,7 +31,7 @@ api.interceptors.response.use(
 	async (error: AxiosError) => {
 		const status = error.response?.status;
 		if (status === 401) {
-			await authService.logout();
+			await authService.logout(true);
 			return Promise.reject(error);
 		}
 	}
