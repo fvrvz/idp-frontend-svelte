@@ -1,7 +1,4 @@
 import { browser } from '$app/environment';
-import { goto } from '$app/navigation';
-import { resolve } from '$app/paths';
-import { Auth } from '$lib/resources/auth';
 import type { Authentication } from '$lib/types/auth.type';
 import { jwtDecode } from 'jwt-decode';
 
@@ -11,13 +8,18 @@ let authData = $state<Authentication | null>(
 		: null
 );
 
-const userProfile = { fullName: 'Full Name', email: 'user@email.com' };
+const userProfile = {
+	firstName: 'Default',
+	lastName: 'User',
+	fullName: 'Default User',
+	email: 'user@email.com',
+};
 
 const user = $derived(
 	authData ? { ...jwtDecode(authData.access_token), ...userProfile } : null
 );
 
-const userInitials = $derived(user?.sub?.substring(0, 2));
+const userInitials = $derived(`${user?.firstName?.[0]}${user?.lastName?.[0]}`);
 
 function setAuth(newAuth: Authentication | null) {
 	authData = newAuth;
@@ -28,18 +30,6 @@ function setAuth(newAuth: Authentication | null) {
 			window.sessionStorage.removeItem('AUTH');
 		}
 	}
-}
-
-async function logout() {
-	const [err] = await Auth.logout();
-
-	if (err) {
-		console.error('Logout failed:', err);
-		return;
-	}
-
-	setAuth(null);
-	goto(resolve('/login'));
 }
 
 export const authStore = {
@@ -53,5 +43,4 @@ export const authStore = {
 		return userInitials;
 	},
 	setAuth,
-	logout,
 };

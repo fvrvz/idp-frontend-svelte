@@ -1,5 +1,6 @@
+import { authService } from '$lib/services/auth.service';
 import { authStore } from '$lib/state/auth.svelte';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 const API_PREFIX = '/api/v1';
 
@@ -14,13 +15,26 @@ api.interceptors.request.use(
 		}
 
 		if (config.url) {
-			const cleanUrl = config.url.startsWith('/') ? config.url : `/${config.url}`;
+			const cleanUrl = config.url.startsWith('/')
+				? config.url
+				: `/${config.url}`;
 			config.url = `${API_PREFIX}${cleanUrl}`;
 		}
 
 		return config;
 	},
-	(error) => Promise.reject(error as Error)
+	(error: AxiosError) => Promise.reject(error)
+);
+
+api.interceptors.response.use(
+	(response) => response,
+	async (error: AxiosError) => {
+		const status = error.response?.status;
+		if (status === 401) {
+			await authService.logout(true);
+			return Promise.reject(error);
+		}
+	}
 );
 
 export default api;
