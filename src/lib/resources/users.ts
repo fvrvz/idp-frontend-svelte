@@ -11,7 +11,7 @@ export class Users {
 	}
 
 	static async get(): Promise<Result<User[]>> {
-		const [err, res] = await promiseWrapper<ListModel<User>>(api.get('/users'));
+		const [err, res] = await promiseWrapper<ListModel<User>>(api.get('/users/'));
 		if (err) return [err, null];
 		return [null, res.data];
 	}
