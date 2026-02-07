@@ -1,11 +1,12 @@
-import type { loginSchema, registerSchema } from '$lib/schemas/auth';
+import type { loginSchema } from '$lib/schemas/auth.schema';
 import type z from 'zod';
-import type { BaseModel } from './common..type';
+import type { User } from './user.type';
 
 export interface Authentication extends Persist {
 	access_token: string;
 	refresh_token: string;
 	expires_in: number;
+	profile: User;
 }
 
 export interface Persist {
@@ -14,6 +15,3 @@ export interface Persist {
 }
 
 export type Login = z.infer<typeof loginSchema>;
-
-export type User = z.infer<typeof registerSchema> &
-	BaseModel & { fullName?: string };

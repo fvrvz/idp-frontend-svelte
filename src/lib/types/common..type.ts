@@ -5,10 +5,18 @@ export interface MenuItem {
 }
 
 export interface BaseModel {
-	createdAt?: string;
+	id: string;
+	createdAt: string;
+	createdBy: string;
+	updatedAt?: string;
+	updatedBy?: string;
 }
 
 export interface ListModel<T> {
 	data: T[];
+	message: string;
+}
+
+export interface ErrorModel {
 	message: string;
 }

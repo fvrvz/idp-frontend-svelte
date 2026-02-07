@@ -8,21 +8,18 @@ let authData = $state<Authentication | null>(
 		: null
 );
 
-const userProfile = {
-	firstName: 'Default',
-	lastName: 'User',
-	fullName: 'Default User',
-	email: 'user@email.com',
-};
-
 const user = $derived(
-	authData ? { ...jwtDecode(authData.access_token), ...userProfile } : null
+	authData ? { ...jwtDecode(authData.access_token), ...authData } : null
 );
 
-const userInitials = $derived(`${user?.firstName?.[0]}${user?.lastName?.[0]}`);
+const userInitials = $derived(
+	`${user?.profile?.firstName?.[0] ?? ''}${user?.profile?.lastName?.[0] ?? ''}`
+);
 
 function setAuth(newAuth: Authentication | null) {
-	authData = newAuth;
+	if (authData) authData = { ...authData, ...newAuth };
+	else authData = null;
+
 	if (browser) {
 		if (newAuth) {
 			window.sessionStorage.setItem('AUTH', JSON.stringify(newAuth));
@@ -34,7 +31,7 @@ function setAuth(newAuth: Authentication | null) {
 
 export const authStore = {
 	get user() {
-		return user;
+		return user?.profile;
 	},
 	get accessToken() {
 		return authData?.access_token;
