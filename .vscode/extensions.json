@@ -4,6 +4,7 @@
 		"esbenp.prettier-vscode",
 		"bradlc.vscode-tailwindcss",
 		"dbaeumer.vscode-eslint",
-		"eamodio.gitlens"
+		"eamodio.gitlens",
+		"pomdtr.excalidraw-editor"
 	]
 }
