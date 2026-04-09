@@ -17,6 +17,11 @@ export interface ListModel<T> {
 	message: string;
 }
 
+export interface SuccessModel<T> {
+	data: T;
+	message: string;
+}
+
 export interface ErrorModel {
 	message: string;
 }

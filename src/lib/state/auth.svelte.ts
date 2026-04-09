@@ -1,43 +1,44 @@
-import { browser } from '$app/environment';
-import type { Authentication } from '$lib/types/auth.type';
-import { jwtDecode } from 'jwt-decode';
+import type { User as OidcUser } from 'oidc-client-ts';
 
-let authData = $state<Authentication | null>(
-	browser && window.sessionStorage.getItem('AUTH')
-		? JSON.parse(window.sessionStorage.getItem('AUTH')!)
+export interface UserProfile {
+	firstName: string;
+	lastName: string;
+	fullName: string;
+	username: string;
+	email: string;
+}
+
+let oidcUser = $state<OidcUser | null>(null);
+
+const profile = $derived<UserProfile | null>(
+	oidcUser?.profile
+		? {
+				firstName: (oidcUser.profile.given_name as string) ?? '',
+				lastName: (oidcUser.profile.family_name as string) ?? '',
+				fullName: (oidcUser.profile.name as string) ?? '',
+				username: (oidcUser.profile.preferred_username as string) ?? '',
+				email: (oidcUser.profile.email as string) ?? '',
+			}
 		: null
 );
 
-const user = $derived(
-	authData ? { ...jwtDecode(authData.access_token), ...authData } : null
-);
-
 const userInitials = $derived(
-	`${user?.profile?.firstName?.[0] ?? ''}${user?.profile?.lastName?.[0] ?? ''}`
+	`${profile?.firstName?.[0] ?? ''}${profile?.lastName?.[0] ?? ''}`
 );
 
-function setAuth(newAuth: Authentication | null) {
-	if (authData) authData = { ...authData, ...newAuth };
-	else authData = null;
-
-	if (browser) {
-		if (newAuth) {
-			window.sessionStorage.setItem('AUTH', JSON.stringify(newAuth));
-		} else {
-			window.sessionStorage.removeItem('AUTH');
-		}
-	}
+function setUser(user: OidcUser | null) {
+	oidcUser = user;
 }
 
 export const authStore = {
 	get user() {
-		return user?.profile;
+		return profile;
 	},
 	get accessToken() {
-		return authData?.access_token;
+		return oidcUser?.access_token ?? null;
 	},
 	get userInitials() {
 		return userInitials;
 	},
-	setAuth,
+	setUser,
 };

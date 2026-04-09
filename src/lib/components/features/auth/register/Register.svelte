@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { Users } from '$lib/resources/users';
 	import { userSchema } from '$lib/schemas/user.schema';
+	import { toastService } from '$lib/services/toast.service.svelte';
 	import dayjs from 'dayjs';
 	import { A, Button, Datepicker, Input, Label } from 'flowbite-svelte';
 	import { defaults, superForm } from 'sveltekit-superforms';
@@ -16,8 +18,12 @@
 			const [err] = await Users.register(form.data);
 
 			if (err) {
-				throw new Error('Something went wrong', err);
+				toastService.error('Registration failed. Please try again.');
+				return;
 			}
+
+			toastService.success('Account created! Please login.');
+			goto(resolve('/login'));
 		},
 	});
 

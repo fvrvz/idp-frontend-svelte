@@ -13,11 +13,11 @@
 		"format": "prettier --write ./src",
 		"lint": "prettier --check . && eslint ./src",
 		"test:unit": "vitest",
-		"test": "npm run test:unit -- --run"
+		"test": "pnpm test:unit --run"
 	},
 	"dependencies": {
 		"axios": "^1.13.4",
-		"jwt-decode": "^4.0.0"
+		"oidc-client-ts": "^3.5.0"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.4.1",
@@ -37,9 +37,11 @@
 		"flowbite-svelte": "^1.31.0",
 		"globals": "^16.5.0",
 		"lucide-svelte": "^0.563.0",
+		"mdsvex": "^0.12.7",
 		"playwright": "^1.58.1",
 		"prettier": "^3.8.1",
 		"prettier-plugin-svelte": "^3.4.1",
+		"shiki": "^4.0.2",
 		"svelte": "^5.49.2",
 		"svelte-check": "^4.3.6",
 		"sveltekit-superforms": "^2.29.1",
@@ -50,5 +52,6 @@
 		"vitest": "^3.2.4",
 		"vitest-browser-svelte": "^0.1.0",
 		"zod": "^4.3.6"
-	}
+	},
+	"packageManager": "pnpm@10.33.0"
 }

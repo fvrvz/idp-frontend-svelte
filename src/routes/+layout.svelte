@@ -1,23 +1,16 @@
 <script lang="ts">
-	import Header from '$lib/components/common/header/Header.svelte';
-	import Sidebar from '$lib/components/common/sidebar/Sidebar.svelte';
+	import ConfirmDialog from '$lib/components/common/dialog/ConfirmDialog.svelte';
+	import ToastProvider from '$lib/components/common/toast/ToastProvider.svelte';
 	import '../app.css';
 
 	let { children } = $props();
 </script>
 
 <svelte:head>
-	<title>AuthServiceGo</title>
+	<title>AuthForest</title>
 </svelte:head>
 
-<div
-	class="mx-auto grid max-w-450 grid-cols-[auto_1fr] grid-rows-[4rem_minmax(calc(100dvh-4rem),1fr)] dark:bg-gray-700 dark:text-amber-50"
->
-	<Sidebar />
-	<Header class="col-start-2" />
-	<main
-		class="col-start-2 bg-indigo-50 pt-4 pr-4 pl-6 dark:bg-indigo-950 max-w-dvw overflow-auto"
-	>
-		{@render children()}
-	</main>
-</div>
+{@render children()}
+
+<ToastProvider />
+<ConfirmDialog />
