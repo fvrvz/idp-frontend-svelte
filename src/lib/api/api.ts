@@ -1,4 +1,4 @@
-import { authService } from '$lib/services/auth.service';
+import { oidcService } from '$lib/services/oidc.service';
 import { authStore } from '$lib/state/auth.svelte';
 import axios, { AxiosError } from 'axios';
 
@@ -31,7 +31,9 @@ api.interceptors.response.use(
 	async (error: AxiosError) => {
 		const status = error.response?.status;
 		if (status === 401) {
-			await authService.logout(true);
+			await oidcService.logout();
+			authStore.setUser(null);
+			window.location.href = `${import.meta.env.BASE_URL}login`;
 			return Promise.reject(error);
 		}
 	}

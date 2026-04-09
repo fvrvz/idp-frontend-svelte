@@ -1,24 +1,26 @@
 <script lang="ts">
-	import { afterNavigate } from '$app/navigation';
+	import { afterNavigate, goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { type Pathname } from '$app/types';
-	import { authService } from '$lib/services/auth.service';
+	import { oidcService } from '$lib/services/oidc.service';
 	import { authStore } from '$lib/state/auth.svelte';
 	import type { MenuItem } from '$lib/types/common..type';
 	import { onDestroy, onMount } from 'svelte';
 	import Avatar from '../avatar/Avatar.svelte';
 
 	const menuItems: MenuItem[] = [
-		{ label: 'Settings', link: '/settings' },
 		{ label: 'Profile', link: '/profile' },
+		{ label: 'Settings', link: '/settings' },
 	];
 
 	let isOpen = $state(false);
 	let container: HTMLDivElement;
 
-	function signout() {
+	async function signout() {
 		isOpen = false;
-		authService.logout();
+		await oidcService.logout();
+		authStore.setUser(null);
+		goto(resolve('/login'));
 	}
 
 	afterNavigate(() => (isOpen = false));

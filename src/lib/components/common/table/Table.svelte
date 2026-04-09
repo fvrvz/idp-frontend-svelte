@@ -19,8 +19,6 @@
 		headers: TableHeader<T>[];
 		loading?: boolean;
 		canSelect?: boolean;
-		fixed?: boolean;
-		onSelect?: (row: T) => void;
 		children?: Snippet<[{ row: T; index: number }]>;
 	}
 
@@ -30,8 +28,6 @@
 		headers,
 		loading = false,
 		canSelect,
-		fixed,
-		onSelect = () => {},
 		children,
 	}: Props = $props();
 
@@ -88,7 +84,7 @@
 				/>
 			</TableHeadCell>
 		{/if}
-		{#each headers as header}
+		{#each headers as header, i (String(header.key) + i)}
 			<TableHeadCell class="normal-case {header.class}">
 				{header.label}
 			</TableHeadCell>
@@ -114,7 +110,7 @@
 					{#if children}
 						{@render children({ row, index })}
 					{:else}
-						{#each headers as col}
+						{#each headers as col, i (String(col.key) + i)}
 							<TableBodyCell>{row[col.key]}</TableBodyCell>
 						{/each}
 					{/if}
