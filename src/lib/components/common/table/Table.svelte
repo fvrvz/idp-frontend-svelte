@@ -72,50 +72,52 @@
 	}
 </script>
 
-<Table hoverable>
-	<TableHead>
-		{#if canSelect}
-			<TableHeadCell>
-				<Checkbox
-					checked={selectAll === 1}
-					indeterminate={selectAll === 2}
-					onchange={(e) => onSelectAll(e)}
-					disabled={loading}
-				/>
-			</TableHeadCell>
-		{/if}
-		{#each headers as header, i (String(header.key) + i)}
-			<TableHeadCell class="normal-case {header.class}">
-				{header.label}
-			</TableHeadCell>
-		{/each}
-	</TableHead>
-
-	<TableBody>
-		{#if loading}
-			<Spinner type="dots" />
-		{:else if !data.length}
-			<p class="text-center text-gray-500">No item available</p>
-		{:else}
-			{#each data as row, index (row[trackBy] ?? index)}
-				<TableBodyRow>
-					{#if canSelect}
-						<TableBodyCell>
-							<Checkbox
-								checked={selected.has(getKey(row, index))}
-								onchange={(e) => onSingleSelect(e, row, index)}
-							/>
-						</TableBodyCell>
-					{/if}
-					{#if children}
-						{@render children({ row, index })}
-					{:else}
-						{#each headers as col, i (String(col.key) + i)}
-							<TableBodyCell>{row[col.key]}</TableBodyCell>
-						{/each}
-					{/if}
-				</TableBodyRow>
+<div class="overflow-x-auto">
+	<Table hoverable>
+		<TableHead>
+			{#if canSelect}
+				<TableHeadCell>
+					<Checkbox
+						checked={selectAll === 1}
+						indeterminate={selectAll === 2}
+						onchange={(e) => onSelectAll(e)}
+						disabled={loading}
+					/>
+				</TableHeadCell>
+			{/if}
+			{#each headers as header, i (String(header.key) + i)}
+				<TableHeadCell class="normal-case {header.class}">
+					{header.label}
+				</TableHeadCell>
 			{/each}
-		{/if}
-	</TableBody>
-</Table>
+		</TableHead>
+
+		<TableBody>
+			{#if loading}
+				<Spinner type="dots" />
+			{:else if !data.length}
+				<p class="text-center text-gray-500">No item available</p>
+			{:else}
+				{#each data as row, index (row[trackBy] ?? index)}
+					<TableBodyRow>
+						{#if canSelect}
+							<TableBodyCell>
+								<Checkbox
+									checked={selected.has(getKey(row, index))}
+									onchange={(e) => onSingleSelect(e, row, index)}
+								/>
+							</TableBodyCell>
+						{/if}
+						{#if children}
+							{@render children({ row, index })}
+						{:else}
+							{#each headers as col, i (String(col.key) + i)}
+								<TableBodyCell>{row[col.key]}</TableBodyCell>
+							{/each}
+						{/if}
+					</TableBodyRow>
+				{/each}
+			{/if}
+		</TableBody>
+	</Table>
+</div>

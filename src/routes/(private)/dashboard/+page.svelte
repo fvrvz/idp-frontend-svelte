@@ -106,7 +106,7 @@
 			</h2>
 			<div class="space-y-3 text-sm">
 				<div
-					class="flex justify-between border-b border-gray-100 pb-2 dark:border-gray-700"
+					class="flex flex-col gap-1 border-b border-gray-100 pb-2 sm:flex-row sm:justify-between dark:border-gray-700"
 				>
 					<span class="text-gray-500 dark:text-gray-400"
 						>Discovery Endpoint</span
@@ -116,7 +116,7 @@
 					>
 				</div>
 				<div
-					class="flex justify-between border-b border-gray-100 pb-2 dark:border-gray-700"
+					class="flex flex-col gap-1 border-b border-gray-100 pb-2 sm:flex-row sm:justify-between dark:border-gray-700"
 				>
 					<span class="text-gray-500 dark:text-gray-400">JWKS Endpoint</span>
 					<code class="text-xs text-gray-700 dark:text-gray-300"
@@ -124,20 +124,20 @@
 					>
 				</div>
 				<div
-					class="flex justify-between border-b border-gray-100 pb-2 dark:border-gray-700"
+					class="flex flex-col gap-1 border-b border-gray-100 pb-2 sm:flex-row sm:justify-between dark:border-gray-700"
 				>
 					<span class="text-gray-500 dark:text-gray-400">Token Signing</span>
 					<span class="text-gray-700 dark:text-gray-300">RS256</span>
 				</div>
 				<div
-					class="flex justify-between border-b border-gray-100 pb-2 dark:border-gray-700"
+					class="flex flex-col gap-1 border-b border-gray-100 pb-2 sm:flex-row sm:justify-between dark:border-gray-700"
 				>
 					<span class="text-gray-500 dark:text-gray-400">Supported Flows</span>
 					<span class="text-gray-700 dark:text-gray-300"
 						>Authorization Code + PKCE</span
 					>
 				</div>
-				<div class="flex justify-between">
+				<div class="flex flex-col gap-1 sm:flex-row sm:justify-between">
 					<span class="text-gray-500 dark:text-gray-400">Scopes</span>
 					<span class="text-gray-700 dark:text-gray-300"
 						>openid, profile, email, offline_access</span

@@ -11,7 +11,7 @@
 	<Sidebar />
 	<Header class="col-start-2" />
 	<main
-		class="col-start-2 overflow-auto bg-gray-50 pt-4 pr-4 pl-6 dark:bg-gray-900"
+		class="col-start-2 overflow-auto bg-gray-50 px-4 pt-4 sm:pr-4 sm:pl-6 dark:bg-gray-900"
 	>
 		{@render children()}
 	</main>
