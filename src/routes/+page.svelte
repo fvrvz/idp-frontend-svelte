@@ -84,10 +84,11 @@
 			</div>
 		</main>
 
-		<footer class="py-4 text-center text-xs text-gray-400 dark:text-gray-500">
-			Powered by <span class="font-semibold text-gray-500 dark:text-gray-400"
-				>FaySo</span
-			>
+		<footer
+			class="flex items-center justify-center gap-1.5 py-4 text-xs text-gray-400 dark:text-gray-500"
+		>
+			Powered by
+			<img src="/fayso-logo.svg" alt="FaySo" class="h-5 dark:brightness-200" />
 		</footer>
 	</div>
 {/if}

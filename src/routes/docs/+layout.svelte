@@ -216,7 +216,7 @@
 					prose-code:rounded prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm prose-code:font-normal
 					prose-pre:rounded-xl prose-pre:shadow-sm prose-pre:ring-1 prose-pre:ring-gray-200 dark:prose-pre:shadow-lg dark:prose-pre:ring-gray-700
 					prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline dark:prose-a:text-primary-400
-					prose-table:overflow-hidden prose-table:rounded-lg prose-table:border prose-table:border-gray-200 dark:prose-table:border-gray-700
+					prose-table:block prose-table:overflow-x-auto prose-table:rounded-lg prose-table:border prose-table:border-gray-200 dark:prose-table:border-gray-700
 					prose-thead:bg-gray-50 dark:prose-thead:bg-gray-800
 					prose-th:px-4 prose-th:py-3 prose-th:text-xs prose-th:font-semibold prose-th:uppercase prose-th:tracking-wider
 					prose-td:px-4 prose-td:py-3

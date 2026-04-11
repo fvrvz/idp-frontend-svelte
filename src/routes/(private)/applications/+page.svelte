@@ -62,7 +62,9 @@
 </script>
 
 <div class="space-y-4">
-	<div class="flex items-center justify-between">
+	<div
+		class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+	>
 		<div>
 			<h1 class="text-3xl font-bold dark:text-white">Applications</h1>
 			<p class="mt-1 text-sm text-gray-500 dark:text-gray-400">

@@ -101,6 +101,6 @@ A self-hosted **OpenID Connect Identity Provider** built with Go. Manage OAuth 2
 				Buy me a coffee
 			</a>
 		</div>
-		<p class="mt-6 text-sm text-gray-400 dark:text-gray-500">Powered by <span class="font-semibold text-gray-500 dark:text-gray-400">FaySo</span></p>
+		<p class="mt-6 flex items-center justify-center gap-1.5 text-sm text-gray-400 dark:text-gray-500">Powered by <img src="/fayso-logo.svg" alt="FaySo" class="h-5 dark:brightness-200" /></p>
 	</div>
 </section>
